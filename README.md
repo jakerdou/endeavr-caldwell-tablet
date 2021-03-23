@@ -1,2 +1,1 @@
-# cs420-spr21
-cs420-spr21
+this is a finance web app that i made mainly for me to keep track of my expenses, but you're more than free to use it. hmu if you have questions

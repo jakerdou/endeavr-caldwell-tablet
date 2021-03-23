@@ -1,0 +1,5 @@
+Link to plaid and have suggested transactions, check date of transaction and if there isn't a transaction of that amount within 10 days of when it went through, flag it
+
+make button highlight and click not be blue
+
+make table outlines black
