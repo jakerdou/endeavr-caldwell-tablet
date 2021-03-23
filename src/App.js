@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,10 +12,28 @@ import Home from './components/Home';
 
 import './App.css';
 
+const config = require('./frontend-config.json');
+
 function App() {
+
+  const testAPI = () => {
+        fetch(`${config.backend_url}/test-api`, {
+            method: 'GET',
+            // body: JSON.stringify({user_id: userID}),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.text())
+        .then(res => console.log(JSON.parse(res)))
+        .catch(err => err);
+    }
+
   return (
     <Router>
       ENDEAVR TABLET
+      <Button onClick={testAPI}>Hit Backend</Button>
       <div className='app h-100'>
         <div className="mt-4">
           <Switch>
