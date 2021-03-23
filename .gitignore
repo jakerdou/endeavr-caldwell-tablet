@@ -1,0 +1,17 @@
+.vscode
+
+*.bwp
+!Proj1/testcase1.bwp
+!Proj1/testcase2.bwp
+!Proj1/testcase3.bwp
+
+*.txt
+!RESULTS.txt
+!sammys.txt
+
+*.out
+*.o
+*.exe
+BlocksworldBFS
+BlocksworldAstar
+sammys
