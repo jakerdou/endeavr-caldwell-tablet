@@ -19,7 +19,6 @@ function App() {
   const testAPI = () => {
         fetch(`${config.backend_url}/test-api`, {
             method: 'GET',
-            // body: JSON.stringify({user_id: userID}),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -34,6 +33,7 @@ function App() {
     <Router>
       ENDEAVR TABLET
       <Button onClick={testAPI}>Hit Backend</Button>
+      <Link to='/home'><Button>Go to Home Page</Button></Link>
       <div className='app h-100'>
         <div className="mt-4">
           <Switch>
