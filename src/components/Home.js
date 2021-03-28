@@ -6,6 +6,7 @@ var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function Home() {
+  console.log('in home');
   const options = {
     title: {
       text: "Water Collected in 2020"
@@ -31,14 +32,13 @@ function Home() {
   }
   return (
     <Container className='home'>
-        <Row>
+        <Row className='current-month'>
             <Col>
-                Home
-                <div>Water Collected This Month</div>
-                <div>18 Gallons</div>
+                <div className='current-month-label font-weight-bold'>Water Collected This Month</div>
+                <div className='current-month-number'>18 Gallons</div>
             </Col>
         </Row>
-        <Row>
+        <Row className='month-chart'>
             <Col>
                 <CanvasJSChart options={options} />
             </Col>
