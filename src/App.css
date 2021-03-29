@@ -11,6 +11,20 @@
   font-size: 1.1em;
 }
 
+.month-chart {
+  margin-top: 10%;
+}
+
+.current-month-label {
+  font-size: 2em;
+
+}
+
+.current-month-number {
+  font-size: 2em;
+  color: blue;
+}
+
 .bg-purp {
   background-color: var(--qd-purple);
 }

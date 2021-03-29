@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 import Home from './components/Home';
@@ -17,29 +18,34 @@ const config = require('./frontend-config.json');
 function App() {
 
   const testAPI = () => {
-        fetch(`${config.backend_url}/test-api`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.text())
-        .then(res => console.log(JSON.parse(res)))
-        .catch(err => err);
-    }
+    fetch(`${config.backend_url}/test-api`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.text())
+    .then(res => console.log(JSON.parse(res)))
+    .catch(err => err);
+  }
+
+  /* root page route
+  <Route path="/">
+    <Button onClick={testAPI}>Hit Backend</Button>
+    <Link to='/home'><Button>Go to Home Page</Button></Link>
+  </Route>
+  */
 
   return (
     <Router>
-      ENDEAVR TABLET
-      <Button onClick={testAPI}>Hit Backend</Button>
-      <Link to='/home'><Button>Go to Home Page</Button></Link>
       <div className='app h-100'>
         <div className="mt-4">
           <Switch>
             <Route path="/home">
               <Home />
             </Route>
+            <Redirect from="/" to="/home" />
           </Switch>
         </div>
       </div>
