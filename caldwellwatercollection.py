@@ -38,6 +38,7 @@ x1 = water_data[['Month']]
 monthlyWaterCollected = water_data['Amount of Water Collected (gallons)']
 x2 = water_data[['Month']]
 totalWater = water_data[['Total Amount of Water Saved (gallons)']]
+
 def clean_dataset(df):
     assert isinstance(df, pd.DataFrame), "df needs to be a pd.DataFrame"
     df.dropna(inplace=True)
@@ -47,7 +48,32 @@ def clean_dataset(df):
 clean_dataset(x1)
 clean_dataset(totalWater)
 
+from statistics import mean
+import numpy as np
+
+
+#process data and calculate line of best fit
+def best_linear_fit(xs, ys):
+  m = (((mean(xs) * mean(ys))- mean(xs*ys))/((mean(xs) * mean(xs)) - mean(xs*xs)) )
+  b = mean(ys) - m*mean(xs)
+  return m, b
+totalWaterArray = totalWater.to_numpy()
+x1Array = x1.to_numpy()
+x1List = []
+totalWaterList = []
+for i in range(0,35):
+  x1List.append(x1Array[i][0])
+  totalWaterList.append(totalWaterArray[i][0])
+xs = np.array(x1List)
+ys = np.array(totalWaterList)
+
+m,b = best_linear_fit(xs, ys)
+
+#regression line 
+regression_line = [(m*x) + b for x in xs]
+
 #scatter plot
+plt.plot(xs, regression_line, color = 'green', linewidth = 7.0)
 plt.plot(x1, totalWater, 'o', color = 'blue', label = 'Monthly Water Collected')
 plt.title('Water Collection Simulation (2018-2020')
 plt.xlabel('Months (starting with January 2018)')
@@ -55,14 +81,13 @@ plt.ylabel('Simulated Amount of Water Collected')
 plt.legend()
 plt.show()
 
-
-#linear regression model
-#x1.reshape(-1,1)
-#x_train, y_train, x_test, y_test = sklearn.model_selection.train_test_split(x1, totalWater)
+#linear regression
 
 linear = LinearRegression()
 
 linear.fit(x1, totalWater)
+
+
 
 #y_predict = linear.predict([[37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]])
 predictionXs = []
@@ -75,10 +100,8 @@ for x in range(37,72):
 
 
 
-#linear.fit(x_train, y_train)
-#print(x1)
-print(predictedYs)
-print(predictionXs)
+
+
 
 
 plt.plot(predictionXs, predictedYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected')
@@ -88,8 +111,46 @@ plt.ylabel('Total Amount of Water Collected (prediction)')
 plt.legend()
 plt.show()
 
+#scatter plot
+plt.plot(xs, regression_line, color = 'green', linewidth = 7.0)
+plt.plot(x1, totalWater, 'o', color = 'blue', label = 'Simulated Monthly Water Collected (2018-2020)')
+plt.xlabel('Months (starting with January 2018)')
+#plt.ylabel('Simulated Amount of Water Collected')
 
 
+
+
+
+plt.plot(predictionXs, predictedYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected (2021-2024)')
+plt.title('Water Collection Simulation (2018-2020) + Total Water Collection Prediction for Next 3 Years (2021-2024)')
+plt.xlabel('Months')
+plt.ylabel('Total Amount of Water Collected (prediction)')
+plt.legend()
+plt.show()
+
+
+print("R-Squared Value:" + str(linear.score(x1, totalWater)))
+
+#polynomial regression
+
+from sklearn.preprocessing import PolynomialFeatures
+
+polynom = PolynomialFeatures(degree = 2)
+X_polynom = polynom.fit_transform(x1)
+
+predictionPolyXs = []
+predictionPolyYs = []
+
+PolyRegression = LinearRegression()
+PolyRegression.fit(X_polynom, totalWater)
+y = PolyRegression.predict(polynom.fit_transform([[39]]))
+
+for x in range(37,72):
+  y_predict_poly = PolyRegression.predict(polynom.fit_transform([[x]]))
+  predictionPolyXs.append(x)
+  predictionPolyYs.append(y_predict_poly[0][0])
+
+print(predictionPolyYs)
 
 #scatter plot
 plt.plot(x1, totalWater, 'o', color = 'blue', label = 'Simulated Monthly Water Collected (2018-2020)')
@@ -97,8 +158,8 @@ plt.xlabel('Months (starting with January 2018)')
 #plt.ylabel('Simulated Amount of Water Collected')
 
 
-plt.plot(predictionXs, predictedYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected (2021-2024)')
-plt.title('Water Collection Simulation (2018-2020) + Total Water Collection Prediction for Next 3 Years (2021-2024)')
+plt.plot(predictionPolyXs, predictionPolyYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected (2021-2024)')
+plt.title('Water Collection Simulation (2018-2020) + Total Water Collection Prediction for Next 3 Years (2021-2024)  (Polynomial Regression)')
 plt.xlabel('Months')
 plt.ylabel('Total Amount of Water Collected (prediction)')
 plt.legend()
