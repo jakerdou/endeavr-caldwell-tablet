@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button'
+import axios from "axios"
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,24 +19,20 @@ const config = require('./frontend-config.json');
 function App() {
 
   const testAPI = () => {
-    fetch(`${config.backend_url}/test-api`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+    axios.get("/caldwelldata/test").then(response => {
+      
+      console.log(response);
     })
-    .then(res => res.text())
-    .then(res => console.log(JSON.parse(res)))
-    .catch(err => err);
+  
+    
   }
-
-  /* root page route
+/*
+   //root page route;
   <Route path="/">
     <Button onClick={testAPI}>Hit Backend</Button>
     <Link to='/home'><Button>Go to Home Page</Button></Link>
   </Route>
-  */
+ */ 
 
   return (
     <Router>
@@ -43,6 +40,7 @@ function App() {
         <div className="mt-4">
           <Switch>
             <Route path="/home">
+              <Button onClick={testAPI}>Hit Backend</Button>
               <Home />
             </Route>
             <Redirect from="/" to="/home" />
