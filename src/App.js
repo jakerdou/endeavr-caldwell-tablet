@@ -18,14 +18,26 @@ const config = require('./frontend-config.json');
 
 function App() {
 
-  const testAPI = () => {
-    axios.get("/caldwelldata/test").then(response => {
+  const testDatabase = () => {
+    axios.get("/caldwelldata").then(response => {
       
       console.log(response);
     })
+
+
   
     
   }
+
+
+  const testDatabase2 = () => {
+    axios.get(`/caldwelldata/test`).then(response => {
+      
+      console.log(response);
+    })
+  }
+
+  
 /*
    //root page route;
   <Route path="/">
@@ -40,7 +52,8 @@ function App() {
         <div className="mt-4">
           <Switch>
             <Route path="/home">
-              <Button onClick={testAPI}>Hit Backend</Button>
+              <Button onClick={testDatabase}>Hit Database/Backend</Button>
+              <Button onClick={testDatabase2}>Get Data For Month</Button>
               <Home />
             </Route>
             <Redirect from="/" to="/home" />
