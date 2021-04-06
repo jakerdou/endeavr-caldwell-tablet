@@ -17,13 +17,17 @@ app.get("/caldwelldata", async (req, res) => {
 
     }
 });
+*/
+
 
 //get an item
 
-app.get("/caldwelldata/:id", async (req, res) => {
-    const { id } = req.params;
+app.get("/caldwelldata/test", async (req, res) => {
+    //const { id } = req.params;
     try{
-        const data = await pool.query("SELECT * FROM monthly_data WHERE water_id = $1", [id]);
+        const data = await pool.query("SELECT * FROM monthly_data WHERE year = '2021';");
+        res.json(data);
+        console.log(data);
 
     }catch(err){
         console.error(err.message);
@@ -31,10 +35,10 @@ app.get("/caldwelldata/:id", async (req, res) => {
 
     }
 });
-*/
-app.get("/caldwelldata/test", async (req, res) => {
+
+app.get("/caldwelldata", async (req, res) => {
     //const { id } = req.params;
-	console.log(data);
+	//console.log(data);
     try{
         var data = '{ "test" }';
 		res.json(data);
