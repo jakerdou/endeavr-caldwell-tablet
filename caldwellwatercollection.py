@@ -12,14 +12,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 import math
-
+from statistics import mean
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
-
 from scipy import stats
 from scipy.stats import kurtosis, skew
-
 from google.colab import files
+from sklearn.preprocessing import PolynomialFeatures
+
+#sklearn linear regression model
+import sklearn
+from sklearn import linear_model
 uploaded = files.upload()
 
 #load data
@@ -31,14 +34,14 @@ water_data.head()
 
 water_data.dtypes
 
-import sklearn
-from sklearn import linear_model
-#monthly water collected
+#data types
 x1 = water_data[['Month']]
 monthlyWaterCollected = water_data['Amount of Water Collected (gallons)']
-x2 = water_data[['Month']]
 totalWater = water_data[['Total Amount of Water Saved (gallons)']]
+monthlyDollarsSaved = water_data[['Amount of Water Collected (gallons)']]
 
+
+#clean dataset
 def clean_dataset(df):
     assert isinstance(df, pd.DataFrame), "df needs to be a pd.DataFrame"
     df.dropna(inplace=True)
@@ -47,10 +50,7 @@ def clean_dataset(df):
 
 clean_dataset(x1)
 clean_dataset(totalWater)
-
-from statistics import mean
-import numpy as np
-
+clean_dataset(totalDollarsSaved)
 
 #process data and calculate line of best fit
 def best_linear_fit(xs, ys):
@@ -72,40 +72,51 @@ m,b = best_linear_fit(xs, ys)
 #regression line 
 regression_line = [(m*x) + b for x in xs]
 
-#scatter plot
+#monthly water collected
 plt.plot(xs, regression_line, color = 'green', linewidth = 7.0)
 plt.plot(x1, totalWater, 'o', color = 'blue', label = 'Monthly Water Collected')
-plt.title('Water Collection Simulation (2018-2020')
+plt.title('Water Collection Simulation (2018-2020)')
 plt.xlabel('Months (starting with January 2018)')
 plt.ylabel('Simulated Amount of Water Collected')
 plt.legend()
 plt.show()
 
+
+#monthly dollars saved
+
+
+plt.plot(x1, totalDollarsSaved, 'o', color = 'blue', label = 'Monthly Dollars Saved')
+plt.title('Water Collection Simulation Dollars Saved(2018-2020)')
+plt.xlabel('Months (starting with January 2018)')
+plt.ylabel('Simulated Amount of Dollars Saved')
+plt.legend()
+plt.show()
+
+
 #linear regression
 
 linear = LinearRegression()
+linearDollarsRegression = LinearRegression()
 
 linear.fit(x1, totalWater)
+linearDollarsRegression.fit(x1, totalDollarsSaved)
 
 
-
-#y_predict = linear.predict([[37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]])
 predictionXs = []
 predictedYs = []
-#emie credit
-for x in range(37,72):
+predictionDollarYs = []
+for x in range(37,108):
   y_predict = linear.predict([[x]])
+  y_predictDollars = linearDollarsRegression.predict([[x]])
+
   predictionXs.append(x)
   predictedYs.append(y_predict[0][0])
-
-
-
-
-
-
+  predictionDollarYs.append(y_predictDollars[0][0])
+  
+#graphs
 
 plt.plot(predictionXs, predictedYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected')
-plt.title('Total Water Collection Prediction for Next 3 Years')
+plt.title('Total Water Collection Prediction for Next 6 Years')
 plt.xlabel('Months Since Construction Date')
 plt.ylabel('Total Amount of Water Collected (prediction)')
 plt.legend()
@@ -115,14 +126,12 @@ plt.show()
 plt.plot(xs, regression_line, color = 'green', linewidth = 7.0)
 plt.plot(x1, totalWater, 'o', color = 'blue', label = 'Simulated Monthly Water Collected (2018-2020)')
 plt.xlabel('Months (starting with January 2018)')
-#plt.ylabel('Simulated Amount of Water Collected')
 
 
 
 
-
-plt.plot(predictionXs, predictedYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected (2021-2024)')
-plt.title('Water Collection Simulation (2018-2020) + Total Water Collection Prediction for Next 3 Years (2021-2024)')
+plt.plot(predictionXs, predictedYs, 'o', color = 'red', label = 'Predicted Monthly Water Collected (2021-2027)')
+plt.title('Water Collection Simulation (2018-2020) + Total Water Collection Prediction for Next 3 Years (2021-2027)')
 plt.xlabel('Months')
 plt.ylabel('Total Amount of Water Collected (prediction)')
 plt.legend()
@@ -131,9 +140,17 @@ plt.show()
 
 print("R-Squared Value:" + str(linear.score(x1, totalWater)))
 
-#polynomial regression
+#monthly dollar saved
+plt.plot(x1, totalDollarsSaved, 'o', color = 'blue', label = 'Monthly Dollars Saved')
+plt.plot(predictionXs, predictionDollarYs, color = 'red', label = 'Predicted Monthly Dollars Saved (2021-2027)')
+plt.title('Money Saved Simulation In Dollars (2018-2020) + Monthly Dollars Prediction for 2021-2027')
+plt.xlabel('Months (starting with January 2018)')
+plt.ylabel('Simulated/Predicted Amount of Money Saved')
+plt.legend()
+plt.show()
 
-from sklearn.preprocessing import PolynomialFeatures
+#polynomial regression (does not work very well)
+
 
 polynom = PolynomialFeatures(degree = 2)
 X_polynom = polynom.fit_transform(x1)
