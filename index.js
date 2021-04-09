@@ -25,7 +25,7 @@ app.get("/caldwelldata", async (req, res) => {
 app.get("/caldwelldata/test", async (req, res) => {
     //const { id } = req.params;
     try{
-        const data = await pool.query("SELECT * FROM monthly_data WHERE year = '2021';");
+        const data = await pool.query("SELECT * FROM monthly_data_updated WHERE year = '2020';");
         res.json(data);
         console.log(data);
 
