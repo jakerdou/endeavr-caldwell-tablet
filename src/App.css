@@ -11,13 +11,25 @@
   font-size: 1.1em;
 }
 
-.month-chart {
-  margin-top: 10%;
+.canvasjs-chart-canvas {
+  margin-left: 25%;
+}
+
+.slide {
+  height: 500px;
+}
+
+.title {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.current-month {
+  margin-top: 15%;
 }
 
 .current-month-label {
   font-size: 2em;
-
 }
 
 .current-month-number {
