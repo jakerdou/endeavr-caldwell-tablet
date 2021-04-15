@@ -17,18 +17,18 @@ function Home() {
       type: "column",
       color: 'blue',
       dataPoints: [
-        { label: "January",  y: 10  },
-        { label: "February", y: 15  },
-        { label: "March", y: 25  },
-        { label: "April",  y: 30  },
-        { label: "May",  y: 28  },
-        { label: "June",  y: 28  },
-        { label: "July",  y: 28  },
-        { label: "August",  y: 28  },
-        { label: "September",  y: 28  },
-        { label: "October",  y: 28  },
-        { label: "November",  y: 28  },
-        { label: "December",  y: 28  },
+        { label: "January",  y: 1005  },
+        { label: "February", y: 1543  },
+        { label: "March", y: 874  },
+        { label: "April",  y: 1654  },
+        { label: "May",  y: 2100  },
+        { label: "June",  y: 999  },
+        { label: "July",  y: 1323  },
+        { label: "August",  y: 1265  },
+        { label: "September",  y: 1785  },
+        { label: "October",  y: 852  },
+        { label: "November",  y: 1987  },
+        { label: "December",  y: 2203  },
       ]
     }],
   }
@@ -39,20 +39,20 @@ function Home() {
     },
     data: [{
       type: "column",
-      color: 'blue',
+      color: 'green',
       dataPoints: [
         { label: "January",  y: 10  },
         { label: "February", y: 15  },
-        { label: "March", y: 25  },
-        { label: "April",  y: 30  },
-        { label: "May",  y: 28  },
-        { label: "June",  y: 28  },
-        { label: "July",  y: 28  },
-        { label: "August",  y: 28  },
-        { label: "September",  y: 28  },
-        { label: "October",  y: 28  },
-        { label: "November",  y: 28  },
-        { label: "December",  y: 28  },
+        { label: "March", y: 21  },
+        { label: "April",  y: 22  },
+        { label: "May",  y: 12  },
+        { label: "June",  y: 17  },
+        { label: "July",  y: 11  },
+        { label: "August",  y: 18  },
+        { label: "September",  y: 20  },
+        { label: "October",  y: 21  },
+        { label: "November",  y: 10  },
+        { label: "December",  y: 21  },
       ]
     }],
   }
@@ -65,18 +65,18 @@ function Home() {
       type: "column",
       color: 'blue',
       dataPoints: [
-        { label: "January",  y: 10  },
-        { label: "February", y: 15  },
-        { label: "March", y: 25  },
-        { label: "April",  y: 30  },
-        { label: "May",  y: 28  },
-        { label: "June",  y: 28  },
-        { label: "July",  y: 28  },
-        { label: "August",  y: 28  },
-        { label: "September",  y: 28  },
-        { label: "October",  y: 28  },
-        { label: "November",  y: 28  },
-        { label: "December",  y: 28  },
+        { label: "January",  y: 1205  },
+        { label: "February", y: 1343  },
+        { label: "March", y: 1074  },
+        { label: "April",  y: 1454  },
+        { label: "May",  y: 2300  },
+        { label: "June",  y: 799  },
+        { label: "July",  y: 1523  },
+        { label: "August",  y: 1065  },
+        { label: "September",  y: 1585  },
+        { label: "October",  y: 652  },
+        { label: "November",  y: 2187  },
+        { label: "December",  y: 2003  },
       ]
     }],
   }
@@ -111,12 +111,23 @@ function Home() {
           <Row>
             <Col>
               <Carousel interval={5000} fade>
-                <Carousel.Item className="current-month">
+                <Carousel.Item className="text-carousel">
                   <div className='current-month-label font-weight-bold'>Water Collected This Month</div>
-                  <div className='current-month-number'>18 Gallons</div>
+                  <div className='current-month-number'>1,800 Gallons</div>
+                </Carousel.Item>
+                <Carousel.Item className="text-carousel">
+                  <div className='current-month-label font-weight-bold'>Money Saved This Month</div>
+                  <div className='dollar-num'>$17</div>
+                </Carousel.Item>
+                <Carousel.Item className="text-carousel">
+                  <div className='current-month-label font-weight-bold'>Total Water Saved</div>
+                  <div className='current-month-number'>460,235 Gallons</div>
+                </Carousel.Item>
+                <Carousel.Item className="text-carousel">
+                  <div className='current-month-label font-weight-bold'>Total Money Saved</div>
+                  <div className='dollar-num'>$2,540</div>
                 </Carousel.Item>
                 <Carousel.Item>
-
                   <div>
                     <CanvasJSChart options={money_saved_options} />
                   </div>
