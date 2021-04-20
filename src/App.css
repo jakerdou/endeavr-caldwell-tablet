@@ -6,7 +6,8 @@
 .app {
   text-align: center;
   /* background-image: linear-gradient(#FFFFFF, #b8b8b8); */
-  background-image: url("lib/caldwell.jpg");
+  /* background-image: url("lib/caldwell.jpg"); */
+  background-image: url("lib/Caldwell_downtown1_(1_of_1).jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
